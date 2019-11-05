@@ -87,5 +87,5 @@ tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz
     #export LDFLAGS="-L$BUILD_DIR/vendor/libmaxminddb/lib" && export CPPFLAGS="-I$BUILD_DIR/vendor/libmaxminddb/include" && ./configure --with-apxs=${APXS_PATH} && make install  
     export LDFLAGS="-L$BUILD_DIR/vendor/libmaxminddb/lib"
     export CPPFLAGS="-I$BUILD_DIR/vendor/libmaxminddb/include"
-    ./configure --with-apxs=${APXS_PATH} && make install  
+    ./configure --with-apxs=${APXS_PATH} && make && make install  
 ) 
