@@ -1,6 +1,5 @@
 
 #!/usr/bin/env bash
-set -e # bail if any command fails
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -49,6 +48,7 @@ mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 
+set -e # bail if any command fails
 
 BUILD_DIR=$1
 CACHE_DIR=$2
