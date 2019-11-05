@@ -1,26 +1,13 @@
-
 #!/usr/bin/env bash
 
 BUILD_DIR=$1
 CACHE_DIR=$2
-ENV_DIR=$3
+ENV_FILE=$3
 VENDOR_DIR="vendor"
-
-# Setup Path variables, for later use in the Buildpack.
-BIN_DIR=$(cd "$(dirname "$0")"; pwd) # absolute path
-ROOT_DIR=$(dirname "$BIN_DIR")
-BUILD_DIR=$1
-CACHE_DIR=$2
-
-# Export Path variables, for use in sub-scripts.
-export BUILD_DIR CACHE_DIR ENV_DIR
-
-
 
 echo $BUILD_DIR
 echo $CACHE_DIR
-echo $ENV_DIR
-
+echo $ENV_FILE
 
 VERSION="1.1.5"
 LIBMAXMIND_DIST_FILE="libmaxminddb-$VERSION.tar.gz"
@@ -34,18 +21,18 @@ cd $CACHE_DIR/.geoip
 
 echo "-----> Installing libmaxminddb $VERSION"
 
-# if [ ! -d $CACHE_DIR/libmaxminddb ]; then
+if [ ! -d $CACHE_DIR/libmaxminddb ]; then
   # Download and build libmaxminddb
   curl -s -L -o libmaxminddb-$VERSION.tar.gz $LIBMAXMIND_DIST_URL
   tar -zxvf libmaxminddb-$VERSION.tar.gz > /dev/null
   cd libmaxminddb-$VERSION
   ./configure --prefix="$CACHE_DIR/libmaxminddb" > /dev/null
   make > /dev/null
-  make check 
-  make install
-# else
-#  echo "$CACHE_DIR/libmaxminddb already cached"
-# fi
+  make check > /dev/null
+  make install > /dev/null
+else
+  echo "$CACHE_DIR/libmaxminddb already cached"
+fi
 
 cd $BUILD_DIR
 mkdir -p $VENDOR_DIR
@@ -57,21 +44,18 @@ cp -R $CACHE_DIR/libmaxminddb .
 echo "exporting PATH and LIBRARY_PATH"
 PROFILE_PATH="$BUILD_DIR/.profile.d/libmaxminddb.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin:$CACHE_DIR/libmaxminddb/bin:/app/tmp/cache/libmaxminddb/lib"
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
-echo "TESTING $PROFILE_PATH"
-.$PROFILE_PATH
-cat $PROFILE_PATH
-echo "RETESTING"
-echo "$PATH"
-echo "$LD_LIBRARY_PATH"
-echo "tested!!!!"
-
 
 # HERE STARTS THE SECOND ONE
 
+#!/usr/bin/env bash
+
 set -e # bail if any command fails
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
 
 MAXMINDDB_VERSION=${MAXMINDDB_VERSION-1.1.0}
 apxs_path=${APXS_PATH-/app/.heroku/php/bin/apxs}
@@ -82,7 +66,6 @@ temp_dir=$(mktemp -d /tmp/maxmind.XXXXXXXXXX)
 
 cleanup() {
   echo "Cleaning up $temp_dir"
-  echo "DIOCAN"
   cd /
   rm -rf "$temp_dir"
 }
@@ -94,8 +77,6 @@ curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz
 (
     cd mod_maxminddb-${MAXMINDDB_VERSION}
-    ./configure -h
-  ./configure --with-apxs=${APXS_PATH} --libdir=/app/tmp/cache/libmaxminddb/lib
-  make install
+  ./configure --with-apxs=${APXS_PATH} && make install
 )
 trap cleanup EXIT
