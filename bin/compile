@@ -51,7 +51,7 @@ echo "TESTING $PROFILE_PATH"
 cat $PROFILE_PATH
 echo "RETESTING"
 echo "$PATH"
-echo "LD_LIBRARY_PATH"
+echo "$LD_LIBRARY_PATH"
 echo "tested!!!!"
 
 set -e # bail if any command fails
