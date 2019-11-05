@@ -47,36 +47,8 @@ mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 
+echo "$PATH"
+echo "$PROFILE_PATH"
+echo "$LD_LIBRARY_PATH"
 # HERE STARTS THE SECOND ONE
 
-#!/usr/bin/env bash
-
-set -e # bail if any command fails
-
-BUILD_DIR=$1
-CACHE_DIR=$2
-ENV_DIR=$3
-
-MAXMINDDB_VERSION=${MAXMINDDB_VERSION-1.1.0}
-apxs_path=${APXS_PATH-/app/.heroku/php/bin/apxs}
-
-maxminddb_tarball_url=https://github.com/maxmind/mod_maxminddb/releases/download/${MAXMINDDB_VERSION}/mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz
-
-temp_dir=$(mktemp -d /tmp/maxmind.XXXXXXXXXX)
-
-cleanup() {
-  echo "Cleaning up $temp_dir"
-  cd /
-  rm -rf "$temp_dir"
-}
-trap cleanup EXIT
-cd $temp_dir
-echo "Temp dir: $temp_dir"
-echo "Downloading $maxminddb_tarball_url"
-curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url
-tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz
-(
-    cd mod_maxminddb-${MAXMINDDB_VERSION}
-  ./configure --with-apxs=${APXS_PATH} && make install
-)
-trap cleanup EXIT
