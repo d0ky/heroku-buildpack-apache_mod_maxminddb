@@ -77,6 +77,9 @@ pwd
 cat $PROFILE_PATH
 echo $MAXMINDLIB
 ls $MAXMINDLIB
+echo "================================="
+ls "$BUILD_DIR/vendor/libmaxminddb/include"
+echo "================================="
 curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url 
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
