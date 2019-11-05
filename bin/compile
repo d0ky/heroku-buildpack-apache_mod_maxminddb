@@ -83,7 +83,7 @@ tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz
 (
     cd mod_maxminddb-${MAXMINDDB_VERSION}
     ./configure -h
-  ./configure --with-apxs=${APXS_PATH} 
+  ./configure --with-apxs=${APXS_PATH} --libdir=$BUILD_DIR/vendor/libmaxminddb/bin
   make install
 )
 trap cleanup EXIT
