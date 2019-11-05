@@ -84,7 +84,5 @@ curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
     cd mod_maxminddb-${MAXMINDDB_VERSION} 
-    export LDFLAGS="-L$BUILD_DIR/vendor/libmaxminddb/lib"
-    export CPPFLAGS="-I$BUILD_DIR/vendor/libmaxminddb/include"
-    ./configure --with-apxs=${APXS_PATH} && make install  
+    export LDFLAGS="-L$BUILD_DIR/vendor/libmaxminddb/lib" && export CPPFLAGS="-I$BUILD_DIR/vendor/libmaxminddb/include" && ./configure --with-apxs=${APXS_PATH} && make install  
 ) 
