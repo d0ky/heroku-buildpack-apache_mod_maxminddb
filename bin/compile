@@ -71,4 +71,9 @@ cleanup() {
 trap cleanup EXIT 
 cd $temp_dir
 pwd
-trap cleanup EXIT
+curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url 
+tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
+( 
+    cd mod_maxminddb-${MAXMINDDB_VERSION} 
+  ./configure --with-apxs=${APXS_PATH} && make install  
+) 
