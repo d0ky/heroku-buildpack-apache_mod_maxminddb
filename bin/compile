@@ -33,7 +33,7 @@ cd $CACHE_DIR/.geoip
 
 echo "-----> Installing libmaxminddb $VERSION"
 
-if [ ! -d $CACHE_DIR/libmaxminddb ]; then
+# if [ ! -d $CACHE_DIR/libmaxminddb ]; then
   # Download and build libmaxminddb
   curl -s -L -o libmaxminddb-$VERSION.tar.gz $LIBMAXMIND_DIST_URL
   tar -zxvf libmaxminddb-$VERSION.tar.gz > /dev/null
@@ -42,9 +42,9 @@ if [ ! -d $CACHE_DIR/libmaxminddb ]; then
   make > /dev/null
   make check > /dev/null
   make install
-else
-  echo "$CACHE_DIR/libmaxminddb already cached"
-fi
+# else
+#  echo "$CACHE_DIR/libmaxminddb already cached"
+# fi
 
 cd $BUILD_DIR
 mkdir -p $VENDOR_DIR
