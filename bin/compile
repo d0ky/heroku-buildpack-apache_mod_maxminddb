@@ -63,7 +63,7 @@ echo "Temp dir2: $temp_dir2"
 echo "Downloading $maxminddb_tarball_url" 
 echo "Version: $MAXMINDDB_VERSION"
 
-MAXMINDLIB = $BUILD_DIR/vendor/libmaxminddb/lib
+MAXMINDLIB="$BUILD_DIR/vendor/libmaxminddb/lib"
 
 cleanup() { 
   echo "Cleaning up $temp_dir2"  
