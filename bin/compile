@@ -60,6 +60,7 @@ export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin:$CACHE_DIR/libmaxminddb/bi
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 echo "TESTING $PROFILE_PATH"
+.$PROFILE_PATH
 cat $PROFILE_PATH
 echo "RETESTING"
 echo "$PATH"
