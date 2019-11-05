@@ -48,7 +48,9 @@ mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 echo "TESTING $PROFILE_PATH"
-cat $PROFILE_PATH;
+cat $PROFILE_PATH
+echo "RETESTING"
+cat $PATH
 
 set -e # bail if any command fails
 
