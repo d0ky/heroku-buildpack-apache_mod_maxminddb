@@ -63,6 +63,8 @@ echo "Temp dir2: $temp_dir2"
 echo "Downloading $maxminddb_tarball_url" 
 echo "Version: $MAXMINDDB_VERSION"
 
+MAXMINDLIB = $BUILD_DIR/vendor/libmaxminddb/lib
+
 cleanup() { 
   echo "Cleaning up $temp_dir2"  
   cd /  
@@ -72,9 +74,11 @@ trap cleanup EXIT
 cd $temp_dir2
 pwd
 cat $PROFILE_PATH
+echo $MAXMINDLIB
+ls $MAXMINDLIB
 curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url 
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
     cd mod_maxminddb-${MAXMINDDB_VERSION} 
-  ./configure --with-apxs=${APXS_PATH} --with-libmaxminddb=$BUILD_DIR/vendor/libmaxminddb/lib && make install  
+  ./configure --with-apxs=${APXS_PATH} --libdir=${MAXMINDLIB} && make install  
 ) 
