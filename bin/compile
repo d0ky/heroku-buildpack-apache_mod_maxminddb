@@ -71,6 +71,7 @@ cleanup() {
 trap cleanup EXIT 
 cd $temp_dir
 pwd
+cat /tmp/build_66e3eb441f741ab6e5d8c25a99369e5d/.profile.d/libmaxminddb.sh
 curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url 
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
