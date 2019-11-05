@@ -30,7 +30,6 @@ if [ -d $CACHE_DIR/libmaxminddb ]; then
   make > /dev/null
   make check > /dev/null
   make install > /dev/null
-  ldconfig
 else
   echo "$CACHE_DIR/libmaxminddb already cached"
 fi
@@ -82,5 +81,5 @@ curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
     cd mod_maxminddb-${MAXMINDDB_VERSION} 
-  ./configure --with-apxs=${APXS_PATH} --libdir=${MAXMINDLIB} && make install  
+  ./configure --with-apxs=${APXS_PATH} --with-libmaxminddb=${MAXMINDLIB/libmaxminddb.a} && make install  
 ) 
