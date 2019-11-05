@@ -47,9 +47,9 @@ mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 
-echo "$PATH"
-echo "$PROFILE_PATH"
-echo "$LD_LIBRARY_PATH"
+echo "path: $PATH"
+echo "profile_path: $PROFILE_PATH"
+echo "ld_library_path: $LD_LIBRARY_PATH"
 
 # HERE STARTS THE SECOND ONE
 
