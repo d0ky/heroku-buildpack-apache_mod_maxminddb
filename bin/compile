@@ -63,7 +63,6 @@ temp_dir=$(mktemp -d /tmp/maxmind.XXXXXXXXXX)
 
 cleanup() {
   echo "Cleaning up $temp_dir"
-  cat config.log
   echo "DIOCAN"
   ./configure -h
   cd /
