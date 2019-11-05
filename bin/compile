@@ -50,7 +50,9 @@ echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/li
 echo "TESTING $PROFILE_PATH"
 cat $PROFILE_PATH
 echo "RETESTING"
-cat $PATH
+echo "$PATH"
+echo "LD_LIBRARY_PATH"
+echo "tested!!!!"
 
 set -e # bail if any command fails
 
