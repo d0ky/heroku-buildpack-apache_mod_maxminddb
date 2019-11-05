@@ -45,6 +45,7 @@ cp -R $CACHE_DIR/libmaxminddb .
 echo "exporting PATH and LIBRARY_PATH"
 PROFILE_PATH="$BUILD_DIR/.profile.d/libmaxminddb.sh"
 mkdir -p $(dirname $PROFILE_PATH)
+export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 echo "TESTING $PROFILE_PATH"
