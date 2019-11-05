@@ -73,6 +73,7 @@ cleanup() {
 trap cleanup EXIT 
 cd $temp_dir2
 pwd
+ldconfig
 cat $PROFILE_PATH
 echo $MAXMINDLIB
 ls $MAXMINDLIB
