@@ -21,7 +21,7 @@ cd $CACHE_DIR/.geoip
 
 echo "-----> Installing libmaxminddb $VERSION"
 
-if [ -d $CACHE_DIR/libmaxminddb ]; then
+if [ ! -d $CACHE_DIR/libmaxminddb ]; then
   # Download and build libmaxminddb
   curl -s -L -o libmaxminddb-$VERSION.tar.gz $LIBMAXMIND_DIST_URL
   tar -zxvf libmaxminddb-$VERSION.tar.gz > /dev/null
