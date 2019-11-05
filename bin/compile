@@ -79,6 +79,7 @@ echo $MAXMINDLIB
 ls $MAXMINDLIB
 echo "================================="
 ls "$BUILD_DIR/vendor/libmaxminddb/include"
+ls /app/vendor/libmaxminddb/lib/
 echo "================================="
 curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url 
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
