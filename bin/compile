@@ -70,7 +70,6 @@ temp_dir=$(mktemp -d /tmp/maxmind.XXXXXXXXXX)
 
 cleanup() {
   echo "Cleaning up $temp_dir"
-  ./configure -h
   echo "DIOCAN"
   cd /
   rm -rf "$temp_dir"
@@ -83,6 +82,8 @@ curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz
 (
     cd mod_maxminddb-${MAXMINDDB_VERSION}
-  ./configure --with-apxs=${APXS_PATH} && make install
+    ./configure -h
+  ./configure --with-apxs=${APXS_PATH} 
+  make install
 )
 trap cleanup EXIT
