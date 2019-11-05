@@ -6,6 +6,17 @@ CACHE_DIR=$2
 ENV_FILE=$3
 VENDOR_DIR="vendor"
 
+# Setup Path variables, for later use in the Buildpack.
+BIN_DIR=$(cd "$(dirname "$0")"; pwd) # absolute path
+ROOT_DIR=$(dirname "$BIN_DIR")
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+# Export Path variables, for use in sub-scripts.
+export BUILD_DIR CACHE_DIR ENV_FILE
+
+
+
 echo $BUILD_DIR
 echo $CACHE_DIR
 echo $ENV_FILE
