@@ -50,5 +50,15 @@ echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/li
 echo "$PATH"
 echo "$PROFILE_PATH"
 echo "$LD_LIBRARY_PATH"
+
 # HERE STARTS THE SECOND ONE
 
+MAXMINDDB_VERSION=${MAXMINDDB_VERSION-1.1.0}
+apxs_path=${APXS_PATH-/app/.heroku/php/bin/apxs}  
+maxminddb_tarball_url=https://github.com/maxmind/mod_maxminddb/releases/download/${MAXMINDDB_VERSION}/mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
+temp_dir=$(mktemp -d /tmp/maxmind.XXXXXXXXXX) 
+
+echo "APSX PATH: $apxs_path"
+echo "Temp dir: $temp_dir"  
+echo "Downloading $maxminddb_tarball_url" 
+echo "Version: $MAXMINDDB_VERSION"
