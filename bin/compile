@@ -1,6 +1,54 @@
-#!/usr/bin/env bash
 
+#!/usr/bin/env bash
 set -e # bail if any command fails
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_FILE=$3
+VENDOR_DIR="vendor"
+
+echo $BUILD_DIR
+echo $CACHE_DIR
+echo $ENV_FILE
+
+VERSION="1.1.5"
+LIBMAXMIND_DIST_FILE="libmaxminddb-$VERSION.tar.gz"
+LIBMAXMIND_DIST_URL="https://github.com/maxmind/libmaxminddb/releases/download/$VERSION/$LIBMAXMIND_DIST_FILE"
+
+echo "Preparing directoryies: $CACHE_DIR/.geoip  $BUILD_DIR/$VENDORED_GEOIP"
+
+mkdir -p $CACHE_DIR/.geoip
+
+cd $CACHE_DIR/.geoip
+
+echo "-----> Installing libmaxminddb $VERSION"
+
+if [ ! -d $CACHE_DIR/libmaxminddb ]; then
+  # Download and build libmaxminddb
+  curl -s -L -o libmaxminddb-$VERSION.tar.gz $LIBMAXMIND_DIST_URL
+  tar -zxvf libmaxminddb-$VERSION.tar.gz > /dev/null
+  cd libmaxminddb-$VERSION
+  ./configure --prefix="$CACHE_DIR/libmaxminddb" > /dev/null
+  make > /dev/null
+  make check > /dev/null
+  make install > /dev/null
+else
+  echo "$CACHE_DIR/libmaxminddb already cached"
+fi
+
+cd $BUILD_DIR
+mkdir -p $VENDOR_DIR
+cd $VENDOR_DIR
+
+# Copy libmaxminddb files to vendor dir
+cp -R $CACHE_DIR/libmaxminddb .
+
+echo "exporting PATH and LIBRARY_PATH"
+PROFILE_PATH="$BUILD_DIR/.profile.d/libmaxminddb.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
+echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
+
 
 BUILD_DIR=$1
 CACHE_DIR=$2
