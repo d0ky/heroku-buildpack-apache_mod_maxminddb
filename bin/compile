@@ -56,22 +56,22 @@ echo "$LD_LIBRARY_PATH"
 MAXMINDDB_VERSION=${MAXMINDDB_VERSION-1.1.0}
 apxs_path=${APXS_PATH-/app/.heroku/php/bin/apxs}  
 maxminddb_tarball_url=https://github.com/maxmind/mod_maxminddb/releases/download/${MAXMINDDB_VERSION}/mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
-temp_dir=$(mktemp -d /tmp/maxmind.XXXXXXXXXX) 
+temp_dir2=$(mktemp -d /tmp/maxmind.XXXXXXXXXX) 
 
 echo "APSX PATH: $apxs_path"
-echo "Temp dir: $temp_dir"  
+echo "Temp dir2: $temp_dir2"  
 echo "Downloading $maxminddb_tarball_url" 
 echo "Version: $MAXMINDDB_VERSION"
 
 cleanup() { 
-  echo "Cleaning up $temp_dir"  
+  echo "Cleaning up $temp_dir2"  
   cd /  
-  rm -rf "$temp_dir"  
+  rm -rf "$temp_dir2"  
 } 
 trap cleanup EXIT 
-cd $temp_dir
+cd $temp_dir2
 pwd
-cat /tmp/build_66e3eb441f741ab6e5d8c25a99369e5d/.profile.d/libmaxminddb.sh
+cat $PROFILE_PATH
 curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url 
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
