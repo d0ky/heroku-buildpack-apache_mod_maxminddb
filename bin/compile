@@ -62,3 +62,13 @@ echo "APSX PATH: $apxs_path"
 echo "Temp dir: $temp_dir"  
 echo "Downloading $maxminddb_tarball_url" 
 echo "Version: $MAXMINDDB_VERSION"
+
+cleanup() { 
+  echo "Cleaning up $temp_dir"  
+  cd /  
+  rm -rf "$temp_dir"  
+} 
+trap cleanup EXIT 
+cd $temp_dir
+pwd
+trap cleanup EXIT
