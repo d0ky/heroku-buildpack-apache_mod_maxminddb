@@ -81,5 +81,5 @@ curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
     cd mod_maxminddb-${MAXMINDDB_VERSION} 
-  ./configure --with-apxs=${APXS_PATH} --libdir=${LD_LIBRARY_PATH} && make install  
+  ./configure --with-apxs=${APXS_PATH} --libdir="$LD_LIBRARY_PATH" && make install  
 ) 
