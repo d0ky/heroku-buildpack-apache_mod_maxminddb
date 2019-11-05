@@ -30,7 +30,7 @@ if [ ! -d $CACHE_DIR/libmaxminddb ]; then
   ./configure --prefix="$CACHE_DIR/libmaxminddb" > /dev/null
   make > /dev/null
   make check > /dev/null
-  make install > /dev/null
+  make install
 else
   echo "$CACHE_DIR/libmaxminddb already cached"
 fi
@@ -45,7 +45,7 @@ cp -R $CACHE_DIR/libmaxminddb .
 echo "exporting PATH and LIBRARY_PATH"
 PROFILE_PATH="$BUILD_DIR/.profile.d/libmaxminddb.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"
+export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin:$CACHE_DIR/libmaxminddb/bin"
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BUILD_DIR/vendor/libmaxminddb/lib:$BUILD_DIR/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 echo "TESTING $PROFILE_PATH"
