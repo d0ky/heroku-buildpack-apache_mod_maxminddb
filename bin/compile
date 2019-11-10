@@ -5,10 +5,6 @@ CACHE_DIR=$2
 ENV_FILE=$3
 VENDOR_DIR="vendor"
 
-echo $BUILD_DIR
-echo $CACHE_DIR
-echo $ENV_FILE
-
 VERSION="1.1.5"
 LIBMAXMIND_DIST_FILE="libmaxminddb-$VERSION.tar.gz"
 LIBMAXMIND_DIST_URL="https://github.com/maxmind/libmaxminddb/releases/download/$VERSION/$LIBMAXMIND_DIST_FILE"
@@ -47,9 +43,9 @@ mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:$BUILD_DIR/vendor/libmaxminddb/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/libmaxminddb/lib:/app/vendor/libmaxminddb/include"' >> $PROFILE_PATH
 
-echo "path: $PATH"
-echo "profile_path: $PROFILE_PATH"
-echo "ld_library_path: $LD_LIBRARY_PATH"
+# echo "path: $PATH"
+# echo "profile_path: $PROFILE_PATH"
+# echo "ld_library_path: $LD_LIBRARY_PATH"
 
 # HERE STARTS THE SECOND ONE
 
@@ -74,13 +70,14 @@ trap cleanup EXIT
 cd $temp_dir2
 pwd
 
-cat $PROFILE_PATH
-echo $MAXMINDLIB
-ls $MAXMINDLIB
-echo "================================="
-ls "$BUILD_DIR/vendor/libmaxminddb/include"
-ls /app/vendor/libmaxminddb/lib/
-echo "================================="
+# cat $PROFILE_PATH
+# echo $MAXMINDLIB
+# ls $MAXMINDLIB
+# echo "================================="
+# ls "$BUILD_DIR/vendor/libmaxminddb/include"
+# ls /app/vendor/libmaxminddb/lib/
+# echo "================================="
+echo "Installing  mod_maxminddb-${MAXMINDDB_VERSION}"
 curl -o mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz -L $maxminddb_tarball_url 
 tar -zxvf mod_maxminddb-${MAXMINDDB_VERSION}.tar.gz 
 ( 
